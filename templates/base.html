@@ -1,0 +1,21 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Lista de Tarefas{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <a href="{% url 'tasks:task_list' %}">Início</a>
+      <a href="{% url 'tasks:tag_list' %}">Tags</a>
+    </aside>
+    <main class="content">
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+</body>
+</html>

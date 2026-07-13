@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Tags{% endblock %}
+
+{% block content %}
+  <div class="page-heading">
+    <h1>Tags</h1>
+    <a class="button button-primary" href="{% url 'tasks:tag_create' %}">Adicionar tag</a>
+  </div>
+  <table>
+    <thead><tr><th>Nome</th><th>Atualizar</th><th>Excluir</th></tr></thead>
+    <tbody>
+      {% for tag in tags %}
+        <tr><td>{{ tag.name }}</td><td><a class="button button-muted" href="{% url 'tasks:tag_update' tag.pk %}">Atualizar</a></td><td><a class="button button-danger" href="{% url 'tasks:tag_delete' tag.pk %}">Excluir</a></td></tr>
+      {% empty %}
+        <tr><td colspan="3">Nenhuma tag cadastrada.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
