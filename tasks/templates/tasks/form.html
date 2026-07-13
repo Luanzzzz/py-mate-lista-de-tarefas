@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{{ title }}</h1>
+  <form method="post" class="card-form">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {% for field in form %}
+      <div class="field">
+        {{ field.label_tag }}
+        {{ field }}
+        {% for error in field.errors %}<p class="error">{{ error }}</p>{% endfor %}
+      </div>
+    {% endfor %}
+    <div class="actions"><button class="button button-primary" type="submit">Salvar</button><a class="button button-muted" href="{% url cancel_url %}">Cancelar</a></div>
+  </form>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Excluir {{ type }}</h1>
+  <form method="post" class="card-form">
+    {% csrf_token %}
+    <p>Tem certeza de que deseja excluir <strong>{{ object }}</strong>?</p>
+    <div class="actions"><button class="button button-danger" type="submit">Excluir</button><a class="button button-muted" href="{% url cancel_url %}">Cancelar</a></div>
+  </form>
+{% endblock %}
