@@ -9,20 +9,20 @@
   </div>
 
   <section class="task-list" aria-label="Tarefas">
-    {% for tarefa in tarefas %}
-      <article class="task {% if tarefa.completed %}task-done{% endif %}">
+    {% for task in tasks %}
+      <article class="task {% if task.completed %}task-done{% endif %}">
         <div class="task-main">
-          <h2>{{ tarefa.content }} <span class="status {% if tarefa.completed %}done{% else %}not-done{% endif %}">{% if tarefa.completed %}Concluída{% else %}Não concluída{% endif %}</span></h2>
-          <p><strong>Criada:</strong> {{ tarefa.created_at|date:'d/m/Y, H:i' }}{% if tarefa.deadline %} · <strong>Prazo:</strong> {{ tarefa.deadline|date:'d/m/Y, H:i' }}{% endif %}</p>
+          <h2>{{ task.content }} <span class="status {% if task.completed %}done{% else %}not-done{% endif %}">{% if task.completed %}Concluída{% else %}Não concluída{% endif %}</span></h2>
+          <p><strong>Criada:</strong> {{ task.created_at|date:'d/m/Y, H:i' }}{% if task.deadline %} · <strong>Prazo:</strong> {{ task.deadline|date:'d/m/Y, H:i' }}{% endif %}</p>
           <p class="tag-line"><strong>Tags:</strong>
-            {% for tag in tarefa.tags.all %}<span class="tag">{{ tag.name }}</span>{% empty %}<span>sem tags</span>{% endfor %}
-            · <a href="{% url 'tasks:task_update' tarefa.pk %}">Atualizar</a>
-            <a href="{% url 'tasks:task_delete' tarefa.pk %}">Excluir</a>
+            {% for tag in task.tags.all %}<span class="tag">{{ tag.name }}</span>{% empty %}<span>sem tags</span>{% endfor %}
+            · <a href="{% url 'tasks:task_update' task.pk %}">Atualizar</a>
+            <a href="{% url 'tasks:task_delete' task.pk %}">Excluir</a>
           </p>
         </div>
-        <form method="post" action="{% url 'tasks:task_toggle' tarefa.pk %}">
+        <form method="post" action="{% url 'tasks:task_toggle' task.pk %}">
           {% csrf_token %}
-          <button class="button {% if tarefa.completed %}button-muted{% else %}button-success{% endif %}" type="submit">{% if tarefa.completed %}Desfazer{% else %}Concluir{% endif %}</button>
+          <button class="button {% if task.completed %}button-muted{% else %}button-success{% endif %}" type="submit">{% if task.completed %}Desfazer{% else %}Concluir{% endif %}</button>
         </form>
       </article>
     {% empty %}

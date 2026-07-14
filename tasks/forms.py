@@ -1,11 +1,11 @@
 from django import forms
 
-from .models import Tag, Tarefa
+from .models import Tag, Task
 
 
-class TarefaForm(forms.ModelForm):
+class TaskForm(forms.ModelForm):
     class Meta:
-        model = Tarefa
+        model = Task
         fields = ("content", "deadline", "completed", "tags")
         widgets = {
             "content": forms.TextInput(attrs={"placeholder": "Ex.: Comprar mantimentos"}),
