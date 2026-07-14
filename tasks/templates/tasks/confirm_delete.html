@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>Excluir {{ type }}</h1>
+  <h1>Excluir {{ object_type }}</h1>
   <form method="post" class="card-form">
     {% csrf_token %}
     <p>Tem certeza de que deseja excluir <strong>{{ object }}</strong>?</p>

@@ -1,17 +1,17 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 
-from .forms import TagForm, TarefaForm
-from .models import Tag, Tarefa
+from .forms import TagForm, TaskForm
+from .models import Tag, Task
 
 
 def task_list(request):
-    tarefas = Tarefa.objects.prefetch_related("tags").order_by("completed", "-created_at")
-    return render(request, "tasks/task_list.html", {"tarefas": tarefas})
+    tasks = Task.objects.prefetch_related("tags").order_by("completed", "-created_at")
+    return render(request, "tasks/task_list.html", {"tasks": tasks})
 
 
 def task_create(request):
-    form = TarefaForm(request.POST or None)
+    form = TaskForm(request.POST or None)
     if request.method == "POST" and form.is_valid():
         form.save()
         return redirect("tasks:task_list")
@@ -19,8 +19,8 @@ def task_create(request):
 
 
 def task_update(request, pk):
-    tarefa = get_object_or_404(Tarefa, pk=pk)
-    form = TarefaForm(request.POST or None, instance=tarefa)
+    task = get_object_or_404(Task, pk=pk)
+    form = TaskForm(request.POST or None, instance=task)
     if request.method == "POST" and form.is_valid():
         form.save()
         return redirect("tasks:task_list")
@@ -28,18 +28,18 @@ def task_update(request, pk):
 
 
 def task_delete(request, pk):
-    tarefa = get_object_or_404(Tarefa, pk=pk)
+    task = get_object_or_404(Task, pk=pk)
     if request.method == "POST":
-        tarefa.delete()
+        task.delete()
         return redirect("tasks:task_list")
-    return render(request, "tasks/confirm_delete.html", {"object": tarefa, "type": "tarefa", "cancel_url": "tasks:task_list"})
+    return render(request, "tasks/confirm_delete.html", {"object": task, "object_type": "tarefa", "cancel_url": "tasks:task_list"})
 
 
 @require_POST
 def task_toggle(request, pk):
-    tarefa = get_object_or_404(Tarefa, pk=pk)
-    tarefa.completed = not tarefa.completed
-    tarefa.save(update_fields=["completed"])
+    task = get_object_or_404(Task, pk=pk)
+    task.completed = not task.completed
+    task.save(update_fields=["completed"])
     return redirect("tasks:task_list")
 
 

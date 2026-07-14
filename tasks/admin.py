@@ -1,10 +1,10 @@
 from django.contrib import admin
 
-from .models import Tag, Tarefa
+from .models import Tag, Task
 
 
-@admin.register(Tarefa)
-class TarefaAdmin(admin.ModelAdmin):
+@admin.register(Task)
+class TaskAdmin(admin.ModelAdmin):
     list_display = ("content", "completed", "created_at", "deadline")
     list_filter = ("completed", "tags")
     search_fields = ("content",)

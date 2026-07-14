@@ -11,12 +11,12 @@ class Tag(models.Model):
         return self.name
 
 
-class Tarefa(models.Model):
+class Task(models.Model):
     content = models.CharField("conteúdo", max_length=255)
     created_at = models.DateTimeField("criada em", auto_now_add=True)
     deadline = models.DateTimeField("prazo", blank=True, null=True)
     completed = models.BooleanField("concluída", default=False)
-    tags = models.ManyToManyField(Tag, blank=True, related_name="tarefas")
+    tags = models.ManyToManyField(Tag, blank=True, related_name="tasks")
 
     class Meta:
         ordering = ["completed", "-created_at"]
